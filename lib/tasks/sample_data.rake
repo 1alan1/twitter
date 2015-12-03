@@ -1,10 +1,10 @@
 namespace :db do
     desc "Populate db with users"
     task populate: :environment do
-      User.create!(name: "Dagar",
-                 email: "dagar90@gmail.com",
-                 password: "foobar",
-                 password_confirmation: "foobar",
+      User.create!(name: "Alan",
+                 email: "alan.tuleuov@gmail.com",
+                 password: "lolkek",
+                 password_confirmation: "lolkek",
                  admin: true)
       99.times do |n|
         name  = Faker::Name.name
@@ -14,6 +14,12 @@ namespace :db do
                      email: email,
                      password: password,
                      password_confirmation: password)
-      end    
+      end
+      users=User.limit(6)
+      users.each do |u|
+          50.times do |i|
+              u.microposts.create!(content: Faker::Lorem.sentence(5))
+          end
+      end
     end
 end
