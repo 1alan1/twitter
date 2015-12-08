@@ -15,6 +15,14 @@ module SessionsHelper
       @current_user ||= User.find_by(remember_token: remember_token)
     end
     
+    def signed_in_user
+      unless signed_in?
+        store_location
+        flash[:danger] = "Требуется авторизация"
+        redirect_to signin_url
+      end
+    end
+    
     def current_user?(user)
       current_user == user
     end
